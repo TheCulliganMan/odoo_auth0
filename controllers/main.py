@@ -171,7 +171,7 @@ class Auth0OAuthLogin(OAuthLogin):
         login = login[0]
         # generate a temporary hashed password and set it in the database
         tmp_password = '%032x' % random.getrandbits(128)
-        paradigm from odoo.addons.auth_crypt.models.res_users
+        # paradigm from odoo.addons.auth_crypt.models.res_users
         encrypted = CryptContext(['pbkdf2_sha512']).encrypt(tmp_password)
         request.env.cr.execute(
            "UPDATE res_users SET  password='', password_crypt=%s WHERE id=%s",
