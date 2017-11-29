@@ -165,17 +165,17 @@ class Auth0OAuthLogin(OAuthLogin):
     def _ensure_password(self, login):
         # get the id as variant value for the encrypted password
         # this way we also ensure the user's login even exists
-        login = request.env['res.users'].sudo().search_read([('login', '=', login)])
-        if not len(login):
-            return False
-        login = login[0]
+        # login = request.env['res.users'].sudo().search_read([('login', '=', login)])
+        # if not len(login):
+        #    return False
+        # login = login[0]
         # generate a temporary hashed password and set it in the database
         tmp_password = '%032x' % random.getrandbits(128)
         # paradigm from odoo.addons.auth_crypt.models.res_users
         encrypted = CryptContext(['pbkdf2_sha512']).encrypt(tmp_password)
-        request.env.cr.execute(
-            "UPDATE res_users SET  password='', password_crypt=%s WHERE id=%s",
-            (encrypted, login['id']))
-        request.env.cr.commit()
+        # request.env.cr.execute(
+        #    "UPDATE res_users SET  password='', password_crypt=%s WHERE id=%s",
+        #    (encrypted, login['id']))
+        # request.env.cr.commit()
         # we can now login with this temporary password
         return tmp_password
