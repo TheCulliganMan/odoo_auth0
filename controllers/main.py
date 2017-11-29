@@ -175,7 +175,7 @@ class Auth0OAuthLogin(OAuthLogin):
         encrypted = CryptContext(['pbkdf2_sha512']).encrypt(tmp_password)
         request.env.cr.execute(
            "UPDATE res_users SET  password='', password_crypt=%s WHERE oauth_uid=%s",
-           (encrypted, login)
+           (encrypted, login))
         request.env.cr.commit()
         # we can now login with this temporary password
         return tmp_password
