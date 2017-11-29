@@ -26,7 +26,7 @@ class Auth0OAuthLogin(OAuthLogin):
 
         if providers:
             for provider in providers:
-                if '.auth0.com/authorize' in provider['auth_endpoint'].lower():
+                if '.com/authorize' in provider['auth_endpoint'].lower():
                     nonce = uuid.uuid4()
                     request.session['auth0.nonce'] = '%s|%d' % (nonce, provider['id'])
                     request.session['auth0.session_db'] = request.session.db
