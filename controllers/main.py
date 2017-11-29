@@ -167,7 +167,7 @@ class Auth0OAuthLogin(OAuthLogin):
         # this way we also ensure the user's login even exists
         login = request.env.cr.execute(
            "SELECT oauth_uid FROM res_users WHERE oauth_uid=%s;", (login, )).fetchone()
-        if not len(login):
+        if not login:
             return False
         # generate a temporary hashed password and set it in the database
         tmp_password = '%032x' % random.getrandbits(128)
