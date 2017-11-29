@@ -67,6 +67,7 @@ class Auth0OAuthLogin(OAuthLogin):
                 return 'Please verify your email first then try again.'
 
         # sure the user is authentic, but do they have a login for this DB?
+        _logger.info(profile)
         login = profile['username']
         password = self._ensure_password(login)
         if not password:
