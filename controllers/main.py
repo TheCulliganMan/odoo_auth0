@@ -166,7 +166,7 @@ class Auth0OAuthLogin(OAuthLogin):
         # get the id as variant value for the encrypted password
         # this way we also ensure the user's login even exists
         login = request.env.cr.execute(
-           "SELECT oauth_uid FROM res_users WHERE oauth_uid=%s;", (login, )).fetchone()
+           "SELECT oauth_uid FROM res_users WHERE oauth_uid=%s;", (login, )).fetchone().commit()
         if not login:
             return False
         # generate a temporary hashed password and set it in the database
