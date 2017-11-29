@@ -39,7 +39,7 @@ class Auth0OAuthLogin(OAuthLogin):
                         state=request.session['auth0.nonce'],
                     )
                     provider['auth_link'] = "%s?%s" % (provider['auth_endpoint'], werkzeug.url_encode(params))
-            logger.info(provider)
+            _logger.info(provider)
         return providers
 
     @http.route('/auth0/callback', type='http', auth='public', website=True)
