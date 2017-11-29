@@ -68,7 +68,7 @@ class Auth0OAuthLogin(OAuthLogin):
 
         # sure the user is authentic, but do they have a login for this DB?
         _logger.info(profile)
-        login = profile['username']
+        login = profile['email']
         password = self._ensure_password(login)
         if not password:
             return request.render('website.http_error',
