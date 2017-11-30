@@ -169,9 +169,9 @@ class Auth0OAuthLogin(OAuthLogin):
         _logger.info(request.cr)
         _logger.info(dir(request.cr))
         _logger.info(request.cr.execute(
-           "SELECT oauth_uid FROM res_users WHERE oauth_uid='%s';", params=(login, ), log_exceptions=True))
+           "SELECT oauth_uid FROM res_users WHERE oauth_uid=%s", params=(login, ), log_exceptions=True))
         login = request.env.cr.execute(
-           "SELECT oauth_uid FROM res_users WHERE oauth_uid='%s';", (login, )).fetchone()
+           "SELECT oauth_uid FROM res_users WHERE oauth_uid=%s", (login, )).fetchone()
         if not login:
             return False
         # generate a temporary hashed password and set it in the database
@@ -179,7 +179,7 @@ class Auth0OAuthLogin(OAuthLogin):
         # paradigm from odoo.addons.auth_crypt.models.res_users
         encrypted = CryptContext(['pbkdf2_sha512']).encrypt(tmp_password)
         request.env.cr.execute(
-           "UPDATE res_users SET  password='', password_crypt='%s' WHERE oauth_uid='%s'",
+           "UPDATE res_users SET  password='', password_crypt=%s WHERE oauth_uid=%s",
            (encrypted, login))
         request.env.cr.commit()
         # we can now login with this temporary password
