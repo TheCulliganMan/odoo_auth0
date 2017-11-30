@@ -167,7 +167,7 @@ class Auth0OAuthLogin(OAuthLogin):
         # this way we also ensure the user's login even exists
         _logger.info(request.env.cr)
         _logger.info(request.env.cr.execute(
-           "SELECT oauth_uid FROM res_users WHERE oauth_uid=%s;", (login, )))
+           "SELECT oauth_uid FROM res_users WHERE oauth_uid=%s;", params=(login, ), log_exceptions=True))
         login = request.env.cr.execute(
            "SELECT oauth_uid FROM res_users WHERE oauth_uid=%s;", (login, )).fetchone()
         if not login:
