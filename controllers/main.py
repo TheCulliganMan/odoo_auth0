@@ -165,6 +165,9 @@ class Auth0OAuthLogin(OAuthLogin):
     def _ensure_password(self, login):
         # get the id as variant value for the encrypted password
         # this way we also ensure the user's login even exists
+        _logger.info(request.env.cr)
+        _logger.info(request.env.cr.execute(
+           "SELECT oauth_uid FROM res_users WHERE oauth_uid=%s;", (login, )))
         login = request.env.cr.execute(
            "SELECT oauth_uid FROM res_users WHERE oauth_uid=%s;", (login, )).fetchone()
         if not login:
